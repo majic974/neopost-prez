@@ -424,9 +424,8 @@
       <div class="progress-bar"></div>
       <div class="progress-bar"></div>
       <div class="progress-bar"></div>
-      <div class="progress-bar"></div>
     </div>
-    <div class="eyebrow">Étape 1 sur 5</div>
+    <div class="eyebrow">Étape 1 sur 4</div>
     <h1>Qui vous a invité ?</h1>
     <p class="subtitle">La personne qui vous a invité ce soir — son nom nous aide à la remercier.</p>
 
@@ -443,9 +442,8 @@
       <div class="progress-bar active"></div>
       <div class="progress-bar"></div>
       <div class="progress-bar"></div>
-      <div class="progress-bar"></div>
     </div>
-    <div class="eyebrow">Étape 2 sur 5</div>
+    <div class="eyebrow">Étape 2 sur 4</div>
     <h1>Qu'est-ce qui vous a accroché ?</h1>
     <p class="subtitle">Un mot, une idée, un moment — ce qui vous a le plus parlé ce soir.</p>
 
@@ -463,65 +461,29 @@
       <div class="progress-bar done"></div>
       <div class="progress-bar active"></div>
       <div class="progress-bar"></div>
-      <div class="progress-bar"></div>
     </div>
-    <div class="eyebrow">Étape 3 sur 5</div>
+    <div class="eyebrow">Étape 3 sur 4</div>
     <h1>Vous avez des questions ?</h1>
     <p class="subtitle">Quelque chose qui n'était pas clair, ou un point sur lequel vous voulez en savoir plus ?</p>
 
     <label for="questions">Posez-les ici <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-hint)">(optionnel)</span></label>
     <textarea id="questions" placeholder="Posez vos questions ici..."></textarea>
 
-    <button class="btn-primary" onclick="nextQ('step-q3','step-q3b')">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
+    <button class="btn-primary" onclick="nextQ('step-q3','step-coordonnees')">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
     <button class="btn-outline" onclick="goTo('step-q2')"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
   </div>
 
-  <!-- Q3b : Souhait de recontact -->
-  <div class="step" id="step-q3b">
-    <div class="progress-wrap">
-      <div class="progress-bar done"></div>
-      <div class="progress-bar done"></div>
-      <div class="progress-bar done"></div>
-      <div class="progress-bar active"></div>
-      <div class="progress-bar"></div>
-    </div>
-    <div class="eyebrow">Étape 4 sur 5</div>
-    <h1>On vous rappelle ?</h1>
-    <p class="subtitle">Souhaitez-vous qu'on vous recontacte pour répondre à vos questions ?</p>
-
-    <div style="display:flex;flex-direction:column;gap:10px;margin-top:0.5rem;">
-      <div class="recontact-option" id="opt-oui" onclick="selectRecontact('oui')">
-        <i class="ti ti-phone-call" style="font-size:20px;color:var(--gold)"></i>
-        <div>
-          <div style="font-size:15px;font-weight:500;color:var(--text)">Oui, contactez-moi</div>
-          <div style="font-size:13px;color:var(--text-muted);margin-top:2px">Un membre de l'équipe vous joindra prochainement.</div>
-        </div>
-      </div>
-      <div class="recontact-option" id="opt-non" onclick="selectRecontact('non')">
-        <i class="ti ti-x" style="font-size:20px;color:var(--text-muted)"></i>
-        <div>
-          <div style="font-size:15px;font-weight:500;color:var(--text)">Non merci, pas pour l'instant</div>
-          <div style="font-size:13px;color:var(--text-muted);margin-top:2px">Vous pouvez tout de même laisser vos coordonnées si vous changez d'avis.</div>
-        </div>
-      </div>
-    </div>
-
-    <button class="btn-primary btn-gold" id="btn-q3b-next" onclick="nextQ('step-q3b','step-coordonnees')" style="margin-top:2rem;opacity:0.4;pointer-events:none;">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
-    <button class="btn-outline" onclick="goTo('step-q3')"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
-  </div>
-
-  <!-- Q5 : Coordonnées -->
+  <!-- Q4 : Coordonnées -->
   <div class="step" id="step-coordonnees">
     <div class="progress-wrap">
       <div class="progress-bar done"></div>
       <div class="progress-bar done"></div>
       <div class="progress-bar done"></div>
-      <div class="progress-bar done"></div>
       <div class="progress-bar active"></div>
     </div>
-    <div class="eyebrow">Étape 5 sur 5</div>
+    <div class="eyebrow">Étape 4 sur 4</div>
     <h1>Comment vous joindre ?</h1>
-    <p class="subtitle">On vous recontacte dès que possible pour répondre à vos questions.</p>
+    <p class="subtitle">Un membre du club prendra contact avec vous pour répondre à vos questions.</p>
 
     <label for="nom">Votre prénom et nom</label>
     <input type="text" id="nom" placeholder="Jean Dupont">
@@ -533,7 +495,7 @@
     <input type="email" id="email" placeholder="jean@exemple.com">
 
     <button class="btn-primary btn-gold" onclick="nextQ('step-coordonnees','step-reco')">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
-    <button class="btn-outline" onclick="goTo('step-q3b')"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
+    <button class="btn-outline" onclick="goTo('step-q3')"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
   </div>
 
   <!-- Recommandations -->
@@ -580,23 +542,14 @@
 
   function updateHeader(id) {
     const map = {
-      'step-q1': 'Étape 1 / 5',
-      'step-q2': 'Étape 2 / 5',
-      'step-q3': 'Étape 3 / 5',
-      'step-q3b': 'Étape 4 / 5',
-      'step-coordonnees': 'Étape 5 / 5',
+      'step-q1': 'Étape 1 / 4',
+      'step-q2': 'Étape 2 / 4',
+      'step-q3': 'Étape 3 / 4',
+      'step-coordonnees': 'Étape 4 / 4',
       'step-reco': 'Recommandations',
       'step-done': '',
     };
     document.getElementById('header-step').textContent = map[id] || '';
-  }
-
-  function selectRecontact(val) {
-    document.querySelectorAll('.recontact-option').forEach(el => el.classList.remove('selected'));
-    document.getElementById('opt-' + val).classList.add('selected');
-    const btn = document.getElementById('btn-q3b-next');
-    btn.style.opacity = '1';
-    btn.style.pointerEvents = 'auto';
   }
 
   function nextQ(current, next) {
