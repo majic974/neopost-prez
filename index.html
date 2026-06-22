@@ -486,6 +486,16 @@
   }
   .acces-feature i { color: var(--gold); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
   .acces-feature strong { color: var(--text); }
+
+  .field-error {
+    font-size: 12px;
+    color: #E05C5C;
+    margin-top: 6px;
+    display: none;
+  }
+  input.invalid, textarea.invalid {
+    border-color: #E05C5C !important;
+  }
 </style>
 </head>
 <body>
@@ -589,6 +599,8 @@
         </div>
       </label>
     </div>
+
+    <div class="field-error" id="domaines-error">Veuillez sélectionner au moins un domaine.</div>
 
     <button class="btn-primary" onclick="nextQ('step-q3','step-acces')">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
     <button class="btn-outline" onclick="goTo('step-q2')"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
@@ -766,7 +778,44 @@
     btn.style.pointerEvents = 'auto';
   }
 
+  function validate(stepId) {
+    var ok = true;
+
+    function requireField(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      if (!el.value.trim()) {
+        el.classList.add('invalid');
+        ok = false;
+      } else {
+        el.classList.remove('invalid');
+      }
+      el.addEventListener('input', function() { el.classList.remove('invalid'); }, { once: true });
+    }
+
+    if (stepId === 'step-q1') {
+      requireField('invitant');
+    }
+
+    if (stepId === 'step-q3') {
+      var anyChecked = ['dom-academie','dom-deals','dom-reco','dom-tout']
+        .some(function(id) { return document.getElementById(id).checked; });
+      var errEl = document.getElementById('domaines-error');
+      if (!anyChecked) { errEl.style.display = 'block'; ok = false; }
+      else { errEl.style.display = 'none'; }
+    }
+
+    if (stepId === 'step-coordonnees') {
+      requireField('nom');
+      requireField('tel');
+      requireField('email');
+    }
+
+    return ok;
+  }
+
   function nextQ(current, next) {
+    if (!validate(current)) return;
     goTo(next);
     if (next === 'step-reco') buildReco();
   }
