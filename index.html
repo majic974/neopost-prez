@@ -406,6 +406,86 @@
     border-color: var(--gold);
     background: var(--gold-light);
   }
+
+  .check-option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    margin-bottom: 10px;
+  }
+  .check-option:hover { background: var(--accent-light); }
+  .check-option input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--gold);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .check-option.checked {
+    border-color: var(--gold);
+    background: var(--gold-light);
+  }
+
+  .acces-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    margin-bottom: 12px;
+  }
+  .acces-card:hover { border-color: var(--gold); }
+  .acces-card.selected {
+    border-color: var(--gold);
+    background: var(--gold-light);
+    box-shadow: 0 4px 16px rgba(196, 169, 107, 0.15);
+  }
+  .acces-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .acces-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .acces-card-subtitle {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 3px;
+  }
+  .acces-card-price {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .acces-features { display: flex; flex-direction: column; gap: 6px; }
+  .acces-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .acces-feature i { color: var(--gold); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .acces-feature strong { color: var(--text); }
 </style>
 </head>
 <body>
@@ -417,17 +497,28 @@
 
 <main class="container">
 
+  <!-- Accueil -->
+  <div class="step active" id="step-home">
+    <div style="text-align:center;padding:3rem 0 2rem;">
+      <div class="success-icon" style="margin:0 auto 1.5rem;"><i class="ti ti-confetti"></i></div>
+      <h1>Félicitations !</h1>
+      <p class="subtitle" style="max-width:340px;margin:0.5rem auto 2.5rem;">Vous êtes au bon endroit au bon moment.</p>
+      <button class="btn-primary btn-gold" onclick="goTo('step-q1')" style="max-width:280px;margin:0 auto;">Commencer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
+    </div>
+  </div>
+
   <!-- Q1 : Invitant -->
-  <div class="step active" id="step-q1">
-    <div class="progress-wrap" id="prog-q1">
+  <div class="step" id="step-q1">
+    <div class="progress-wrap">
       <div class="progress-bar active"></div>
       <div class="progress-bar"></div>
       <div class="progress-bar"></div>
       <div class="progress-bar"></div>
+      <div class="progress-bar"></div>
     </div>
-    <div class="eyebrow">Étape 1 sur 4</div>
-    <h1>Qui vous a invité ?</h1>
-    <p class="subtitle">La personne qui vous a invité ce soir — son nom nous aide à la remercier.</p>
+    <div class="eyebrow">Étape 1 sur 5</div>
+    <h1>Qui vous a convié à cette présentation ?</h1>
+    <p class="subtitle">La personne qui vous a convié ce soir — son nom nous aide à la remercier.</p>
 
     <label for="invitant">Son prénom et nom</label>
     <input type="text" id="invitant" placeholder="Ex : Marie Dupont">
@@ -435,55 +526,154 @@
     <button class="btn-primary" onclick="nextQ('step-q1','step-q2')">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
   </div>
 
-  <!-- Q2 : Ce qui a plu -->
+  <!-- Q2 : Questions -->
   <div class="step" id="step-q2">
     <div class="progress-wrap">
       <div class="progress-bar done"></div>
       <div class="progress-bar active"></div>
       <div class="progress-bar"></div>
       <div class="progress-bar"></div>
+      <div class="progress-bar"></div>
     </div>
-    <div class="eyebrow">Étape 2 sur 4</div>
-    <h1>Qu'est-ce qui vous a accroché ?</h1>
-    <p class="subtitle">Un mot, une idée, un moment — ce qui vous a le plus parlé ce soir.</p>
+    <div class="eyebrow">Étape 2 sur 5</div>
+    <h1>Vous avez des questions ?</h1>
+    <p class="subtitle">On est là pour répondre — posez tout ce qui vous a traversé l'esprit ce soir.</p>
 
-    <label for="plu">Dites-nous en plus</label>
-    <textarea id="plu" placeholder="Le concept, les opportunités présentées, l'ambiance, les intervenants..."></textarea>
+    <label for="questions">Posez-les ici <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-hint)">(optionnel)</span></label>
+    <textarea id="questions" placeholder="Posez vos questions ici..."></textarea>
 
     <button class="btn-primary" onclick="nextQ('step-q2','step-q3')">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
     <button class="btn-outline" onclick="goTo('step-q1')"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
   </div>
 
-  <!-- Q3 : Questions -->
+  <!-- Q3 : Domaines -->
   <div class="step" id="step-q3">
     <div class="progress-wrap">
       <div class="progress-bar done"></div>
       <div class="progress-bar done"></div>
       <div class="progress-bar active"></div>
       <div class="progress-bar"></div>
+      <div class="progress-bar"></div>
     </div>
-    <div class="eyebrow">Étape 3 sur 4</div>
-    <h1>Vous avez des questions ?</h1>
-    <p class="subtitle">Quelque chose qui n'était pas clair, ou un point sur lequel vous voulez en savoir plus ?</p>
+    <div class="eyebrow">Étape 3 sur 5</div>
+    <h1>Quels domaines vous intéressent ?</h1>
+    <p class="subtitle">Sélectionnez un ou plusieurs domaines — pas de mauvaise réponse.</p>
 
-    <label for="questions">Posez-les ici <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-hint)">(optionnel)</span></label>
-    <textarea id="questions" placeholder="Posez vos questions ici..."></textarea>
+    <div style="margin-top:1.5rem;">
+      <label class="check-option" id="chk-academie">
+        <input type="checkbox" id="dom-academie" onchange="toggleCheck('chk-academie')">
+        <div>
+          <div style="font-size:15px;font-weight:500;color:var(--text)">Neo Académie</div>
+          <div style="font-size:13px;color:var(--text-muted);margin-top:2px">Formation</div>
+        </div>
+      </label>
+      <label class="check-option" id="chk-deals">
+        <input type="checkbox" id="dom-deals" onchange="toggleCheck('chk-deals')">
+        <div>
+          <div style="font-size:15px;font-weight:500;color:var(--text)">Neo Deals / Partners</div>
+          <div style="font-size:13px;color:var(--text-muted);margin-top:2px">Investissements</div>
+        </div>
+      </label>
+      <label class="check-option" id="chk-reco">
+        <input type="checkbox" id="dom-reco" onchange="toggleCheck('chk-reco')">
+        <div>
+          <div style="font-size:15px;font-weight:500;color:var(--text)">Recommandations</div>
+          <div style="font-size:13px;color:var(--text-muted);margin-top:2px">Business</div>
+        </div>
+      </label>
+      <label class="check-option" id="chk-tout">
+        <input type="checkbox" id="dom-tout" onchange="toggleTout()">
+        <div>
+          <div style="font-size:15px;font-weight:500;color:var(--text)">Tout</div>
+          <div style="font-size:13px;color:var(--text-muted);margin-top:2px">Je suis intéressé par l'ensemble</div>
+        </div>
+      </label>
+    </div>
 
-    <button class="btn-primary" onclick="nextQ('step-q3','step-coordonnees')">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
+    <button class="btn-primary" onclick="nextQ('step-q3','step-acces')">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
     <button class="btn-outline" onclick="goTo('step-q2')"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
   </div>
 
-  <!-- Q4 : Coordonnées -->
-  <div class="step" id="step-coordonnees">
+  <!-- Q4 : Accès (placeholder — à compléter avec le visuel) -->
+  <div class="step" id="step-acces">
     <div class="progress-wrap">
       <div class="progress-bar done"></div>
       <div class="progress-bar done"></div>
       <div class="progress-bar done"></div>
       <div class="progress-bar active"></div>
+      <div class="progress-bar"></div>
     </div>
-    <div class="eyebrow">Étape 4 sur 4</div>
+    <div class="eyebrow">Étape 4 sur 5</div>
+    <h1>Qu'est-ce qui vous convient le mieux ?</h1>
+    <p class="subtitle">Choisissez l'accès qui correspond le mieux à votre situation.</p>
+
+    <div style="margin-top:1.5rem;">
+
+      <div class="acces-card" id="acces-foundation" onclick="selectAcces('foundation')">
+        <div class="acces-card-header">
+          <div>
+            <div class="acces-card-title">Neo Foundation</div>
+            <div class="acces-card-subtitle">Vos fondations financières</div>
+          </div>
+          <div class="acces-card-price">300 €</div>
+        </div>
+        <div class="acces-features">
+          <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Académie</strong> — Apprendre à gérer vos finances</span></div>
+          <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Partners</strong> — Revenus passifs dès 100 $ : Immobilier, Horlogerie, Crypto</span></div>
+        </div>
+      </div>
+
+      <div class="acces-card" id="acces-growth" onclick="selectAcces('growth')">
+        <div class="acces-card-header">
+          <div>
+            <div class="acces-card-title">Neo Growth</div>
+            <div class="acces-card-subtitle">Vos rentes à long terme</div>
+          </div>
+          <div class="acces-card-price">600 € – 1 200 €</div>
+        </div>
+        <div class="acces-features">
+          <div class="acces-feature"><i class="ti ti-check"></i><span><strong>MyFinApp</strong> — Tableau de bord patrimonial (jusqu'à 3 mois offerts)</span></div>
+          <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Deals</strong> — Co-investir dans le rachat d'entreprises</span></div>
+          <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Deals+</strong> (Elite) — Accès renforcé aux deals</span></div>
+        </div>
+      </div>
+
+      <div class="acces-card" id="acces-owner" onclick="selectAcces('owner')">
+        <div class="acces-card-header">
+          <div>
+            <div class="acces-card-title">Neo Owner</div>
+            <div class="acces-card-subtitle">Devenez multi-propriétaire d'entreprises</div>
+          </div>
+          <div class="acces-card-price">3 000 € – 12 000 €</div>
+        </div>
+        <div class="acces-features">
+          <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Privilèges</strong> — Tirages Rolex + Accès Watches Shop</span></div>
+          <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Startup</strong> — Parts dans un pool de start-up alimenté chaque mois</span></div>
+          <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Equity</strong> (Inner Circle) — Capital de PME rentables : valorisation + dividendes</span></div>
+          <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Buyout</strong> (Inner Circle) — Rachat de votre première entreprise accompagné</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="font-size:11px;color:var(--text-hint);text-align:center;margin-top:1rem;line-height:1.5;">Les avantages se cumulent à mesure que le niveau de Neo Card progresse.<br>Rendements et exemples donnés à titre indicatif, non garantis.</p>
+
+    <button class="btn-primary btn-gold" id="btn-acces-next" onclick="nextQ('step-acces','step-coordonnees')" style="margin-top:1.5rem;opacity:0.4;pointer-events:none;">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
+    <button class="btn-outline" onclick="goTo('step-q3')"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
+  </div>
+
+  <!-- Q5 : Coordonnées -->
+  <div class="step" id="step-coordonnees">
+    <div class="progress-wrap">
+      <div class="progress-bar done"></div>
+      <div class="progress-bar done"></div>
+      <div class="progress-bar done"></div>
+      <div class="progress-bar done"></div>
+      <div class="progress-bar active"></div>
+    </div>
+    <div class="eyebrow">Étape 5 sur 5</div>
     <h1>Comment vous joindre ?</h1>
-    <p class="subtitle">Un membre du club prendra contact avec vous pour répondre à vos questions.</p>
+    <p class="subtitle">Par quels moyens souhaitez-vous être recontacté ?</p>
 
     <label for="nom">Votre prénom et nom</label>
     <input type="text" id="nom" placeholder="Jean Dupont">
@@ -495,13 +685,13 @@
     <input type="email" id="email" placeholder="jean@exemple.com">
 
     <button class="btn-primary btn-gold" onclick="nextQ('step-coordonnees','step-reco')">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
-    <button class="btn-outline" onclick="goTo('step-q3')"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
+    <button class="btn-outline" onclick="goTo('step-acces')"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
   </div>
 
   <!-- Recommandations -->
   <div class="step" id="step-reco">
     <div class="eyebrow">Dernière étape</div>
-    <h1>10 personnes qui méritent de découvrir le club</h1>
+    <h1>Qui d'autre devrait être dans la pièce ?</h1>
     <p class="subtitle">Dans votre entourage, qui pourrait être intéressé ? Famille, amis, collègues — notez-les ici.</p>
 
     <div class="info-banner">
@@ -522,7 +712,7 @@
     <div class="success-wrap">
       <div class="success-icon"><i class="ti ti-circle-check"></i></div>
       <h1>Merci !</h1>
-      <p class="subtitle" style="max-width:320px;margin:0 auto 2rem;">Vos informations ont bien été enregistrées. Un membre de notre équipe vous contactera prochainement.</p>
+      <p class="subtitle" style="max-width:320px;margin:0 auto 2rem;">C'est bien noté. Un membre du club vous recontacte très prochainement.</p>
     </div>
     <div class="divider"></div>
     <button class="btn-primary" onclick="resetForm()">
@@ -542,14 +732,38 @@
 
   function updateHeader(id) {
     const map = {
-      'step-q1': 'Étape 1 / 4',
-      'step-q2': 'Étape 2 / 4',
-      'step-q3': 'Étape 3 / 4',
-      'step-coordonnees': 'Étape 4 / 4',
+      'step-home': '',
+      'step-q1': 'Étape 1 / 5',
+      'step-q2': 'Étape 2 / 5',
+      'step-q3': 'Étape 3 / 5',
+      'step-acces': 'Étape 4 / 5',
+      'step-coordonnees': 'Étape 5 / 5',
       'step-reco': 'Recommandations',
       'step-done': '',
     };
     document.getElementById('header-step').textContent = map[id] || '';
+  }
+
+  function toggleCheck(id) {
+    const checkbox = document.querySelector('#' + id + ' input[type="checkbox"]');
+    document.getElementById(id).classList.toggle('checked', checkbox.checked);
+  }
+
+  function toggleTout() {
+    const tout = document.getElementById('dom-tout').checked;
+    ['academie','deals','reco'].forEach(key => {
+      document.getElementById('dom-' + key).checked = tout;
+      document.getElementById('chk-' + key).classList.toggle('checked', tout);
+    });
+    document.getElementById('chk-tout').classList.toggle('checked', tout);
+  }
+
+  function selectAcces(val) {
+    document.querySelectorAll('.acces-card').forEach(el => el.classList.remove('selected'));
+    document.getElementById('acces-' + val).classList.add('selected');
+    const btn = document.getElementById('btn-acces-next');
+    btn.style.opacity = '1';
+    btn.style.pointerEvents = 'auto';
   }
 
   function nextQ(current, next) {
@@ -591,8 +805,9 @@
 
   function resetForm() {
     document.querySelectorAll('input, textarea').forEach(el => el.value = '');
+    document.querySelectorAll('.check-option').forEach(el => el.classList.remove('checked'));
     document.getElementById('reco-list').innerHTML = '';
-    goTo('step-q1');
+    goTo('step-home');
   }
 </script>
 </body>
