@@ -799,7 +799,45 @@
     }
   }
 
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzXlx9NRC4yqWOdeFmdlzFg0t56e-42LhwYWjYYPVDYPlOP4fJT1DX3Nam85gtCud7k/exec';
+
   function submitForm() {
+    var domaines = [];
+    if (document.getElementById('dom-academie').checked) domaines.push('Neo Académie');
+    if (document.getElementById('dom-deals').checked) domaines.push('Neo Deals/Partners');
+    if (document.getElementById('dom-reco').checked) domaines.push('Recommandations');
+    if (document.getElementById('dom-tout').checked) domaines = ['Tout'];
+
+    var accesSelected = document.querySelector('.acces-card.selected');
+    var acces = accesSelected ? accesSelected.querySelector('.acces-card-title').textContent : '';
+
+    var recos = {};
+    for (var i = 1; i <= 10; i++) {
+      recos['reco' + i] = {
+        nom:   (document.getElementById('r' + i + '-nom')   || {}).value || '',
+        rel:   (document.getElementById('r' + i + '-rel')   || {}).value || '',
+        tel:   (document.getElementById('r' + i + '-tel')   || {}).value || '',
+        email: (document.getElementById('r' + i + '-email') || {}).value || ''
+      };
+    }
+
+    var payload = Object.assign({
+      invitant:  document.getElementById('invitant').value  || '',
+      questions: document.getElementById('questions').value || '',
+      domaines:  domaines.join(', '),
+      acces:     acces,
+      nom:       document.getElementById('nom').value       || '',
+      tel:       document.getElementById('tel').value       || '',
+      email:     document.getElementById('email').value     || ''
+    }, recos);
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload)
+    });
+
     goTo('step-done');
   }
 
