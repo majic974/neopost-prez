@@ -714,6 +714,7 @@
     <input type="email" id="email" placeholder="jean@exemple.com">
 
     <div class="field-error" id="coordonnees-error">Veuillez renseigner au moins un téléphone ou un email.</div>
+    <div class="field-error" id="coordonnees-email-error">L'adresse email n'est pas valide.</div>
 
     <button class="btn-primary btn-gold" onclick="nextQ('step-coordonnees','step-reco')">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
     <button class="btn-outline" onclick="goTo('step-acces')"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
@@ -789,6 +790,10 @@
     document.getElementById('chk-tout').classList.toggle('checked', tout);
   }
 
+  function isValidEmail(val) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
+  }
+
   function formatPhone(input) {
     var digits = input.value.replace(/\D/g, '').slice(0, 10);
     var parts = [];
@@ -839,22 +844,32 @@
       var tel = document.getElementById('tel');
       var email = document.getElementById('email');
       var coordErr = document.getElementById('coordonnees-error');
+      var emailFmtErr = document.getElementById('coordonnees-email-error');
       tel.classList.remove('invalid');
       email.classList.remove('invalid');
+      coordErr.style.display = 'none';
+      emailFmtErr.style.display = 'none';
+
       if (!tel.value.trim() && !email.value.trim()) {
         tel.classList.add('invalid');
         email.classList.add('invalid');
         coordErr.style.display = 'block';
         ok = false;
+      } else if (email.value.trim() && !isValidEmail(email.value)) {
+        email.classList.add('invalid');
+        emailFmtErr.style.display = 'block';
+        ok = false;
+      }
+
+      if (!ok) {
         [tel, email].forEach(function(el) {
           el.addEventListener('input', function() {
             tel.classList.remove('invalid');
             email.classList.remove('invalid');
             coordErr.style.display = 'none';
+            emailFmtErr.style.display = 'none';
           }, { once: true });
         });
-      } else {
-        coordErr.style.display = 'none';
       }
     }
 
@@ -897,7 +912,22 @@
 
   var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzXlx9NRC4yqWOdeFmdlzFg0t56e-42LhwYWjYYPVDYPlOP4fJT1DX3Nam85gtCud7k/exec';
 
+  function validateRecoEmails() {
+    var ok = true;
+    for (var i = 1; i <= 10; i++) {
+      var el = document.getElementById('r' + i + '-email');
+      if (!el) continue;
+      el.classList.remove('invalid');
+      if (el.value.trim() && !isValidEmail(el.value)) {
+        el.classList.add('invalid');
+        ok = false;
+      }
+    }
+    return ok;
+  }
+
   function submitForm() {
+    if (!validateRecoEmails()) return;
     var domaines = [];
     if (document.getElementById('dom-academie').checked) domaines.push('Neo Académie');
     if (document.getElementById('dom-deals').checked) domaines.push('Neo Deals/Partners');
