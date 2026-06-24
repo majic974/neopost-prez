@@ -420,12 +420,25 @@
     margin-bottom: 10px;
   }
   .check-option:hover { background: var(--accent-light); }
-  .check-option input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    accent-color: var(--gold);
-    cursor: pointer;
+  .check-option input[type="checkbox"] { display: none; }
+  .check-box {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: transparent;
+    background: var(--surface);
+    transition: all 0.2s;
+  }
+  .check-option.checked .check-box {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #fff;
   }
   .check-option.checked {
     border-color: var(--gold);
@@ -567,11 +580,12 @@
     </div>
     <div class="eyebrow">Étape 3 sur 5</div>
     <h1>Quels domaines vous intéressent ?</h1>
-    <p class="subtitle">Sélectionnez un ou plusieurs domaines — pas de mauvaise réponse.</p>
+    <p class="subtitle">Sélectionnez un ou plusieurs domaines.</p>
 
     <div style="margin-top:1.5rem;">
       <label class="check-option" id="chk-academie">
         <input type="checkbox" id="dom-academie" onchange="toggleCheck('chk-academie')">
+        <div class="check-box"><i class="ti ti-check"></i></div>
         <div>
           <div style="font-size:15px;font-weight:500;color:var(--text)">Neo Académie</div>
           <div style="font-size:13px;color:var(--text-muted);margin-top:2px">Formation</div>
@@ -579,6 +593,7 @@
       </label>
       <label class="check-option" id="chk-deals">
         <input type="checkbox" id="dom-deals" onchange="toggleCheck('chk-deals')">
+        <div class="check-box"><i class="ti ti-check"></i></div>
         <div>
           <div style="font-size:15px;font-weight:500;color:var(--text)">Neo Deals / Partners</div>
           <div style="font-size:13px;color:var(--text-muted);margin-top:2px">Investissements</div>
@@ -586,6 +601,7 @@
       </label>
       <label class="check-option" id="chk-reco">
         <input type="checkbox" id="dom-reco" onchange="toggleCheck('chk-reco')">
+        <div class="check-box"><i class="ti ti-check"></i></div>
         <div>
           <div style="font-size:15px;font-weight:500;color:var(--text)">Recommandations</div>
           <div style="font-size:13px;color:var(--text-muted);margin-top:2px">Business</div>
@@ -593,6 +609,7 @@
       </label>
       <label class="check-option" id="chk-tout">
         <input type="checkbox" id="dom-tout" onchange="toggleTout()">
+        <div class="check-box"><i class="ti ti-check"></i></div>
         <div>
           <div style="font-size:15px;font-weight:500;color:var(--text)">Tout</div>
           <div style="font-size:13px;color:var(--text-muted);margin-top:2px">Je suis intéressé par l'ensemble</div>
