@@ -84,8 +84,28 @@
   .step.active { display: block; animation: fadeIn 0.25s ease; }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .section-block {
+    padding-bottom: 1.75rem;
+    margin-bottom: 1.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-heading {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+  }
+  .section-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
   }
 
   /* Progress bar */
@@ -532,192 +552,117 @@
 
   <!-- Q1 : Invitant -->
   <div class="step" id="step-q1">
-    <div class="progress-wrap">
-      <div class="progress-bar active"></div>
-      <div class="progress-bar"></div>
-      <div class="progress-bar"></div>
-      <div class="progress-bar"></div>
-      <div class="progress-bar"></div>
-    </div>
-    <div class="eyebrow">Étape 1 sur 5</div>
+    <div class="eyebrow">Étape 1 sur 2</div>
     <h1>Qui vous a convié à cette présentation ?</h1>
-    <p class="subtitle">La personne qui vous a convié ce soir — son nom nous aide à la remercier.</p>
-
+    <p class="subtitle">Son nom nous permettra de la remercier comme il se doit.</p>
     <label for="invitant">Son prénom et nom</label>
     <input type="text" id="invitant" placeholder="Ex : Marie Dupont">
-
-    <button class="btn-primary" onclick="nextQ('step-q1','step-q2')">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
+    <button class="btn-primary" onclick="nextQ('step-q1','step-choix')" style="margin-top:2rem;">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
   </div>
 
-  <!-- Q2 : Questions -->
-  <div class="step" id="step-q2">
-    <div class="progress-wrap">
-      <div class="progress-bar done"></div>
-      <div class="progress-bar active"></div>
-      <div class="progress-bar"></div>
-      <div class="progress-bar"></div>
-      <div class="progress-bar"></div>
-    </div>
-    <div class="eyebrow">Étape 2 sur 5</div>
-    <h1>Avez-vous des questions ?</h1>
-    <p class="subtitle">On est là pour vous répondre — il n'y a pas de mauvaise question.</p>
-
-    <label for="questions">Posez-les ici <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-hint)">(optionnel)</span></label>
-    <textarea id="questions" placeholder="Posez vos questions ici..."></textarea>
-
-    <button class="btn-primary" onclick="nextQ('step-q2','step-q3')">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
-    <button class="btn-outline" onclick="goTo('step-q1')"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
-  </div>
-
-  <!-- Q3 : Domaines -->
-  <div class="step" id="step-q3">
-    <div class="progress-wrap">
-      <div class="progress-bar done"></div>
-      <div class="progress-bar done"></div>
-      <div class="progress-bar active"></div>
-      <div class="progress-bar"></div>
-      <div class="progress-bar"></div>
-    </div>
-    <div class="eyebrow">Étape 3 sur 5</div>
-    <h1>Quels domaines vous intéressent ?</h1>
-    <p class="subtitle">Sélectionnez un ou plusieurs domaines.</p>
-
-    <div style="margin-top:1.5rem;">
-      <label class="check-option" id="chk-academie">
-        <input type="checkbox" id="dom-academie" onchange="toggleCheck('chk-academie')">
-        <div class="check-box"><i class="ti ti-check"></i></div>
-        <div>
-          <div style="font-size:15px;font-weight:500;color:var(--text)">Neo Académie</div>
-          <div style="font-size:13px;color:var(--text-muted);margin-top:2px">Formation</div>
-        </div>
-      </label>
-      <label class="check-option" id="chk-deals">
-        <input type="checkbox" id="dom-deals" onchange="toggleCheck('chk-deals')">
-        <div class="check-box"><i class="ti ti-check"></i></div>
-        <div>
-          <div style="font-size:15px;font-weight:500;color:var(--text)">Neo Deals / Partners</div>
-          <div style="font-size:13px;color:var(--text-muted);margin-top:2px">Investissements</div>
-        </div>
-      </label>
-      <label class="check-option" id="chk-reco">
-        <input type="checkbox" id="dom-reco" onchange="toggleCheck('chk-reco')">
-        <div class="check-box"><i class="ti ti-check"></i></div>
-        <div>
-          <div style="font-size:15px;font-weight:500;color:var(--text)">Recommandations</div>
-          <div style="font-size:13px;color:var(--text-muted);margin-top:2px">Business</div>
-        </div>
-      </label>
-      <label class="check-option" id="chk-tout">
-        <input type="checkbox" id="dom-tout" onchange="toggleTout()">
-        <div class="check-box"><i class="ti ti-check"></i></div>
-        <div>
-          <div style="font-size:15px;font-weight:500;color:var(--text)">Tout</div>
-          <div style="font-size:13px;color:var(--text-muted);margin-top:2px">Je suis intéressé par l'ensemble</div>
-        </div>
-      </label>
-    </div>
-
-    <div class="field-error" id="domaines-error">Veuillez sélectionner au moins un domaine.</div>
-
-    <button class="btn-primary" onclick="nextQ('step-q3','step-acces')">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
-    <button class="btn-outline" onclick="goTo('step-q2')"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
-  </div>
-
-  <!-- Q4 : Accès (placeholder — à compléter avec le visuel) -->
-  <div class="step" id="step-acces">
-    <div class="progress-wrap">
-      <div class="progress-bar done"></div>
-      <div class="progress-bar done"></div>
-      <div class="progress-bar done"></div>
-      <div class="progress-bar active"></div>
-      <div class="progress-bar"></div>
-    </div>
-    <div class="eyebrow">Étape 4 sur 5</div>
-    <h1>Qu'est-ce qui vous convient le mieux ?</h1>
-    <p class="subtitle">Choisissez l'accès qui correspond le mieux à votre situation.</p>
-
-    <div style="margin-top:1.5rem;">
-
-      <div class="acces-card" id="acces-foundation" onclick="selectAcces('foundation')">
-        <div class="acces-card-header">
-          <div>
-            <div class="acces-card-title">Neo Foundation</div>
-            <div class="acces-card-subtitle">Vos fondations financières</div>
-          </div>
-          <div class="acces-card-price">300 €</div>
-        </div>
-        <div class="acces-features">
-          <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Académie</strong> — Apprendre à gérer vos finances</span></div>
-          <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Partners</strong> — Revenus passifs dès 100 $ : Immobilier, Horlogerie, Crypto</span></div>
+  <!-- Choix -->
+  <div class="step" id="step-choix">
+    <div class="eyebrow">Étape 2 sur 2</div>
+    <h1>Qu'avez-vous pensé de la présentation ?</h1>
+    <p class="subtitle">Choisissez ce qui correspond le mieux à votre situation.</p>
+    <div class="choice-grid">
+      <div class="choice-card" onclick="goInteresse()">
+        <div class="choice-icon gold"><i class="ti ti-star"></i></div>
+        <div class="choice-body">
+          <h3>Je suis intéressé</h3>
+          <p>Je souhaite en savoir plus et rejoindre le club.</p>
         </div>
       </div>
-
-      <div class="acces-card" id="acces-growth" onclick="selectAcces('growth')">
-        <div class="acces-card-header">
-          <div>
-            <div class="acces-card-title">Neo Growth</div>
-            <div class="acces-card-subtitle">Vos rentes à long terme</div>
-          </div>
-          <div class="acces-card-price">600 € – 1 200 €</div>
-        </div>
-        <div class="acces-features">
-          <div class="acces-feature"><i class="ti ti-check"></i><span><strong>MyFinApp</strong> — Tableau de bord patrimonial (jusqu'à 3 mois offerts)</span></div>
-          <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Deals</strong> — Co-investir dans le rachat d'entreprises</span></div>
-          <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Deals+</strong> (Elite) — Accès renforcé aux deals</span></div>
+      <div class="choice-card" onclick="goPasInteresse()">
+        <div class="choice-icon dark"><i class="ti ti-users"></i></div>
+        <div class="choice-body">
+          <h3>Pas pour moi</h3>
+          <p>Ce n'est pas le bon moment, mais je peux recommander des personnes.</p>
         </div>
       </div>
-
-      <div class="acces-card" id="acces-owner" onclick="selectAcces('owner')">
-        <div class="acces-card-header">
-          <div>
-            <div class="acces-card-title">Neo Owner</div>
-            <div class="acces-card-subtitle">Devenez multi-propriétaire d'entreprises</div>
-          </div>
-          <div class="acces-card-price">3 000 € – 12 000 €</div>
-        </div>
-        <div class="acces-features">
-          <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Privilèges</strong> — Tirages Rolex + Accès Watches Shop</span></div>
-          <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Startup</strong> — Parts dans un pool de start-up alimenté chaque mois</span></div>
-          <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Equity</strong> (Inner Circle) — Capital de PME rentables : valorisation + dividendes</span></div>
-          <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Buyout</strong> (Inner Circle) — Rachat de votre première entreprise accompagné</span></div>
-        </div>
-      </div>
-
     </div>
-
-    <p style="font-size:11px;color:var(--text-hint);text-align:center;margin-top:1rem;line-height:1.5;">Les avantages se cumulent à mesure que le niveau de Neo Card progresse.<br>Rendements et exemples donnés à titre indicatif, non garantis.</p>
-
-    <button class="btn-primary btn-gold" id="btn-acces-next" onclick="nextQ('step-acces','step-coordonnees')" style="margin-top:1.5rem;opacity:0.4;pointer-events:none;">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
-    <button class="btn-outline" onclick="goTo('step-q3')"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
+    <button class="btn-outline" onclick="goTo('step-q1')" style="margin-top:1rem;"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
   </div>
 
-  <!-- Q5 : Coordonnées -->
-  <div class="step" id="step-coordonnees">
-    <div class="progress-wrap">
-      <div class="progress-bar done"></div>
-      <div class="progress-bar done"></div>
-      <div class="progress-bar done"></div>
-      <div class="progress-bar done"></div>
-      <div class="progress-bar active"></div>
+  <!-- Intéressé (page condensée) -->
+  <div class="step" id="step-interesse">
+
+    <div class="section-block">
+      <h2 class="section-heading">Quels domaines vous intéressent ?</h2>
+      <p class="section-sub">Sélectionnez un ou plusieurs domaines.</p>
+      <div style="margin-top:0.75rem;">
+        <label class="check-option" id="chk-academie">
+          <input type="checkbox" id="dom-academie" onchange="toggleCheck('chk-academie')">
+          <div class="check-box"><i class="ti ti-check"></i></div>
+          <div><div style="font-size:15px;font-weight:500;color:var(--text)">Neo Académie</div><div style="font-size:13px;color:var(--text-muted);margin-top:2px">Formation</div></div>
+        </label>
+        <label class="check-option" id="chk-deals">
+          <input type="checkbox" id="dom-deals" onchange="toggleCheck('chk-deals')">
+          <div class="check-box"><i class="ti ti-check"></i></div>
+          <div><div style="font-size:15px;font-weight:500;color:var(--text)">Neo Deals / Partners</div><div style="font-size:13px;color:var(--text-muted);margin-top:2px">Investissements</div></div>
+        </label>
+        <label class="check-option" id="chk-reco">
+          <input type="checkbox" id="dom-reco" onchange="toggleCheck('chk-reco')">
+          <div class="check-box"><i class="ti ti-check"></i></div>
+          <div><div style="font-size:15px;font-weight:500;color:var(--text)">Recommandations</div><div style="font-size:13px;color:var(--text-muted);margin-top:2px">Business</div></div>
+        </label>
+        <label class="check-option" id="chk-tout">
+          <input type="checkbox" id="dom-tout" onchange="toggleTout()">
+          <div class="check-box"><i class="ti ti-check"></i></div>
+          <div><div style="font-size:15px;font-weight:500;color:var(--text)">Tout</div><div style="font-size:13px;color:var(--text-muted);margin-top:2px">Je suis intéressé par l'ensemble</div></div>
+        </label>
+      </div>
+      <div class="field-error" id="domaines-error">Veuillez sélectionner au moins un domaine.</div>
     </div>
-    <div class="eyebrow">Étape 5 sur 5</div>
-    <h1>Comment vous joindre ?</h1>
-    <p class="subtitle">Par quels moyens souhaitez-vous être recontacté ?</p>
 
-    <label for="nom">Votre prénom et nom</label>
-    <input type="text" id="nom" placeholder="Jean Dupont">
+    <div class="section-block">
+      <h2 class="section-heading">Qu'est-ce qui vous convient le mieux ?</h2>
+      <p class="section-sub">Choisissez l'accès qui correspond le mieux à votre situation.</p>
+      <div style="margin-top:0.75rem;">
+        <div class="acces-card" id="acces-foundation" onclick="selectAcces('foundation')">
+          <div class="acces-card-header"><div><div class="acces-card-title">Neo Foundation</div><div class="acces-card-subtitle">Vos fondations financières</div></div><div class="acces-card-price">300 €</div></div>
+          <div class="acces-features">
+            <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Académie</strong> — Apprendre à gérer vos finances</span></div>
+            <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Partners</strong> — Revenus passifs dès 100 $ : Immobilier, Horlogerie, Crypto</span></div>
+          </div>
+        </div>
+        <div class="acces-card" id="acces-growth" onclick="selectAcces('growth')">
+          <div class="acces-card-header"><div><div class="acces-card-title">Neo Growth</div><div class="acces-card-subtitle">Vos rentes à long terme</div></div><div class="acces-card-price">600 € – 1 200 €</div></div>
+          <div class="acces-features">
+            <div class="acces-feature"><i class="ti ti-check"></i><span><strong>MyFinApp</strong> — Tableau de bord patrimonial (jusqu'à 3 mois offerts)</span></div>
+            <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Deals</strong> — Co-investir dans le rachat d'entreprises</span></div>
+            <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Deals+</strong> (Elite) — Accès renforcé aux deals</span></div>
+          </div>
+        </div>
+        <div class="acces-card" id="acces-owner" onclick="selectAcces('owner')">
+          <div class="acces-card-header"><div><div class="acces-card-title">Neo Owner</div><div class="acces-card-subtitle">Devenez multi-propriétaire d'entreprises</div></div><div class="acces-card-price">3 000 € – 12 000 €</div></div>
+          <div class="acces-features">
+            <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Privilèges</strong> — Tirages Rolex + Accès Watches Shop</span></div>
+            <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Startup</strong> — Parts dans un pool de start-up alimenté chaque mois</span></div>
+            <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Equity</strong> (Inner Circle) — Capital de PME rentables : valorisation + dividendes</span></div>
+            <div class="acces-feature"><i class="ti ti-check"></i><span><strong>Neo Buyout</strong> (Inner Circle) — Rachat de votre première entreprise accompagné</span></div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:11px;color:var(--text-hint);text-align:center;margin-top:1rem;line-height:1.5;">Les avantages se cumulent à mesure que le niveau de Neo Card progresse.<br>Rendements et exemples donnés à titre indicatif, non garantis.</p>
+      <div class="field-error" id="acces-error">Veuillez sélectionner un accès.</div>
+    </div>
 
-    <label for="tel">Votre téléphone</label>
-    <input type="tel" id="tel" placeholder="0692 11 11 11" oninput="formatPhone(this)" inputmode="numeric">
+    <div class="section-block" style="border-bottom:none;padding-bottom:0;">
+      <h2 class="section-heading">Comment vous joindre ?</h2>
+      <p class="section-sub">Par quels moyens souhaitez-vous être recontacté ?</p>
+      <label for="nom">Votre prénom et nom</label>
+      <input type="text" id="nom" placeholder="Jean Dupont">
+      <label for="tel">Votre téléphone</label>
+      <input type="tel" id="tel" placeholder="0692 11 11 11" oninput="formatPhone(this)" inputmode="numeric">
+      <label for="email">Votre email</label>
+      <input type="email" id="email" placeholder="jean@exemple.com">
+      <div class="field-error" id="coordonnees-error">Veuillez renseigner au moins un téléphone ou un email.</div>
+      <div class="field-error" id="coordonnees-email-error">L'adresse email n'est pas valide.</div>
+    </div>
 
-    <label for="email">Votre email</label>
-    <input type="email" id="email" placeholder="jean@exemple.com">
-
-    <div class="field-error" id="coordonnees-error">Veuillez renseigner au moins un téléphone ou un email.</div>
-    <div class="field-error" id="coordonnees-email-error">L'adresse email n'est pas valide.</div>
-
-    <button class="btn-primary btn-gold" onclick="nextQ('step-coordonnees','step-reco')">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
-    <button class="btn-outline" onclick="goTo('step-acces')"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
+    <button class="btn-primary btn-gold" onclick="nextQ('step-interesse','step-reco')" style="margin-top:2rem;">Continuer <i class="ti ti-arrow-right" style="font-size:15px"></i></button>
+    <button class="btn-outline" onclick="goTo('step-choix')"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
   </div>
 
   <!-- Recommandations -->
@@ -725,6 +670,11 @@
     <div class="eyebrow">Dernière étape</div>
     <h1>À qui avez-vous pensé pendant la présentation ?</h1>
     <p class="subtitle">Dans votre entourage ? Famille, amis, collègues ?</p>
+
+    <div id="reco-identity" style="display:none;margin-bottom:1.5rem;">
+      <label for="nom-invite">Votre prénom et nom <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-hint)">(optionnel)</span></label>
+      <input type="text" id="nom-invite" placeholder="Jean Dupont">
+    </div>
 
     <div class="info-banner">
       <i class="ti ti-info-circle"></i>
@@ -736,7 +686,7 @@
     <button class="btn-primary btn-gold" onclick="submitForm()" style="margin-top:2rem;">
       <i class="ti ti-send" style="font-size:15px"></i> Terminer et envoyer
     </button>
-    <button class="btn-outline" onclick="goTo('step-coordonnees')"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
+    <button class="btn-outline" onclick="goBack()"><i class="ti ti-arrow-left" style="font-size:15px"></i> Retour</button>
   </div>
 
   <!-- Confirmation finale -->
@@ -755,35 +705,61 @@
 </main>
 
 <script>
+  var formPath = 'interesse';
+
   function goTo(id) {
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    updateHeader(id);
+    var currentEl = document.querySelector('.step.active');
+    var nextEl = document.getElementById(id);
+    if (!currentEl || currentEl === nextEl) return;
+    currentEl.style.transition = 'opacity 0.25s ease';
+    currentEl.style.opacity = '0';
+    setTimeout(function() {
+      currentEl.classList.remove('active');
+      currentEl.style.opacity = '';
+      currentEl.style.transition = '';
+      nextEl.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      updateHeader(id);
+    }, 260);
   }
 
   function updateHeader(id) {
-    const map = {
+    var map = {
       'step-home': '',
-      'step-q1': 'Étape 1 / 5',
-      'step-q2': 'Étape 2 / 5',
-      'step-q3': 'Étape 3 / 5',
-      'step-acces': 'Étape 4 / 5',
-      'step-coordonnees': 'Étape 5 / 5',
+      'step-q1': 'Étape 1 / 2',
+      'step-choix': 'Étape 2 / 2',
+      'step-interesse': 'Votre profil',
       'step-reco': 'Recommandations',
-      'step-done': '',
+      'step-done': ''
     };
     document.getElementById('header-step').textContent = map[id] || '';
   }
 
+  function goInteresse() {
+    formPath = 'interesse';
+    goTo('step-interesse');
+  }
+
+  function goPasInteresse() {
+    formPath = 'pas-interesse';
+    document.getElementById('reco-identity').style.display = 'block';
+    buildReco();
+    goTo('step-reco');
+  }
+
+  function goBack() {
+    if (formPath === 'interesse') goTo('step-interesse');
+    else goTo('step-choix');
+  }
+
   function toggleCheck(id) {
-    const checkbox = document.querySelector('#' + id + ' input[type="checkbox"]');
+    var checkbox = document.querySelector('#' + id + ' input[type="checkbox"]');
     document.getElementById(id).classList.toggle('checked', checkbox.checked);
   }
 
   function toggleTout() {
-    const tout = document.getElementById('dom-tout').checked;
-    ['academie','deals','reco'].forEach(key => {
+    var tout = document.getElementById('dom-tout').checked;
+    ['academie','deals','reco'].forEach(function(key) {
       document.getElementById('dom-' + key).checked = tout;
       document.getElementById('chk-' + key).classList.toggle('checked', tout);
     });
@@ -805,11 +781,10 @@
   }
 
   function selectAcces(val) {
-    document.querySelectorAll('.acces-card').forEach(el => el.classList.remove('selected'));
+    document.querySelectorAll('.acces-card').forEach(function(el) { el.classList.remove('selected'); });
     document.getElementById('acces-' + val).classList.add('selected');
-    const btn = document.getElementById('btn-acces-next');
-    btn.style.opacity = '1';
-    btn.style.pointerEvents = 'auto';
+    var errEl = document.getElementById('acces-error');
+    if (errEl) errEl.style.display = 'none';
   }
 
   function validate(stepId) {
@@ -831,16 +806,20 @@
       requireField('invitant');
     }
 
-    if (stepId === 'step-q3') {
+    if (stepId === 'step-interesse') {
       var anyChecked = ['dom-academie','dom-deals','dom-reco','dom-tout']
         .some(function(id) { return document.getElementById(id).checked; });
-      var errEl = document.getElementById('domaines-error');
-      if (!anyChecked) { errEl.style.display = 'block'; ok = false; }
-      else { errEl.style.display = 'none'; }
-    }
+      var domErr = document.getElementById('domaines-error');
+      if (!anyChecked) { domErr.style.display = 'block'; ok = false; }
+      else { domErr.style.display = 'none'; }
 
-    if (stepId === 'step-coordonnees') {
+      var accesSelected = document.querySelector('.acces-card.selected');
+      var accesErr = document.getElementById('acces-error');
+      if (!accesSelected) { accesErr.style.display = 'block'; ok = false; }
+      else { accesErr.style.display = 'none'; }
+
       requireField('nom');
+
       var tel = document.getElementById('tel');
       var email = document.getElementById('email');
       var coordErr = document.getElementById('coordonnees-error');
@@ -862,14 +841,8 @@
       }
 
       if (!ok) {
-        [tel, email].forEach(function(el) {
-          el.addEventListener('input', function() {
-            tel.classList.remove('invalid');
-            email.classList.remove('invalid');
-            coordErr.style.display = 'none';
-            emailFmtErr.style.display = 'none';
-          }, { once: true });
-        });
+        var firstInvalid = document.querySelector('#step-interesse .invalid, #step-interesse .field-error[style*="block"]');
+        if (firstInvalid) firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }
 
@@ -878,35 +851,23 @@
 
   function nextQ(current, next) {
     if (!validate(current)) return;
-    goTo(next);
     if (next === 'step-reco') buildReco();
+    goTo(next);
   }
 
   function buildReco() {
-    const list = document.getElementById('reco-list');
+    var list = document.getElementById('reco-list');
     if (list.children.length > 0) return;
-    for (let i = 1; i <= 10; i++) {
-      list.innerHTML += `
-        <div class="rec-card">
-          <div class="rec-header">
-            <div class="rec-num">${i}</div>
-            <div class="rec-title">Recommandation ${i}</div>
-          </div>
-          <div class="grid2">
-            <div>
-              <label>Son prénom & nom</label>
-              <input type="text" placeholder="Jean Dupont" id="r${i}-nom">
-            </div>
-            <div>
-              <label>Votre lien avec elle</label>
-              <input type="text" placeholder="Ami, collègue…" id="r${i}-rel">
-            </div>
-          </div>
-          <label>Son téléphone</label>
-          <input type="tel" placeholder="0692 11 11 11" id="r${i}-tel" oninput="formatPhone(this)" inputmode="numeric">
-          <label>Son email</label>
-          <input type="email" placeholder="jean@exemple.com" id="r${i}-email">
-        </div>`;
+    for (var i = 1; i <= 10; i++) {
+      list.innerHTML += '<div class="rec-card">'
+        + '<div class="rec-header"><div class="rec-num">' + i + '</div><div class="rec-title">Recommandation ' + i + '</div></div>'
+        + '<div class="grid2">'
+        + '<div><label>Son prénom &amp; nom</label><input type="text" placeholder="Jean Dupont" id="r' + i + '-nom"></div>'
+        + '<div><label>Votre lien avec elle</label><input type="text" placeholder="Ami, collègue…" id="r' + i + '-rel"></div>'
+        + '</div>'
+        + '<label>Son téléphone</label><input type="tel" placeholder="0692 11 11 11" id="r' + i + '-tel" oninput="formatPhone(this)" inputmode="numeric">'
+        + '<label>Son email</label><input type="email" placeholder="jean@exemple.com" id="r' + i + '-email">'
+        + '</div>';
     }
   }
 
@@ -928,14 +889,28 @@
 
   function submitForm() {
     if (!validateRecoEmails()) return;
-    var domaines = [];
-    if (document.getElementById('dom-academie').checked) domaines.push('Neo Académie');
-    if (document.getElementById('dom-deals').checked) domaines.push('Neo Deals/Partners');
-    if (document.getElementById('dom-reco').checked) domaines.push('Recommandations');
-    if (document.getElementById('dom-tout').checked) domaines = ['Tout'];
 
-    var accesSelected = document.querySelector('.acces-card.selected');
-    var acces = accesSelected ? accesSelected.querySelector('.acces-card-title').textContent : '';
+    var domaines = [];
+    var acces = '';
+    var nom = '';
+    var tel = '';
+    var email = '';
+
+    if (formPath === 'interesse') {
+      if (document.getElementById('dom-academie').checked) domaines.push('Neo Académie');
+      if (document.getElementById('dom-deals').checked) domaines.push('Neo Deals/Partners');
+      if (document.getElementById('dom-reco').checked) domaines.push('Recommandations');
+      if (document.getElementById('dom-tout').checked) domaines = ['Tout'];
+      var accesEl = document.querySelector('.acces-card.selected');
+      acces = accesEl ? accesEl.querySelector('.acces-card-title').textContent : '';
+      nom   = document.getElementById('nom').value || '';
+      tel   = document.getElementById('tel').value || '';
+      email = document.getElementById('email').value || '';
+    } else {
+      domaines = ['Non intéressé'];
+      acces = 'Non intéressé';
+      nom   = document.getElementById('nom-invite').value || '';
+    }
 
     var recos = {};
     for (var i = 1; i <= 10; i++) {
@@ -948,13 +923,13 @@
     }
 
     var payload = Object.assign({
-      invitant:  document.getElementById('invitant').value  || '',
-      questions: document.getElementById('questions').value || '',
+      invitant:  document.getElementById('invitant').value || '',
+      questions: formPath === 'interesse' ? ((document.getElementById('questions') || {}).value || '') : '',
       domaines:  domaines.join(', '),
       acces:     acces,
-      nom:       document.getElementById('nom').value       || '',
-      tel:       document.getElementById('tel').value       || '',
-      email:     document.getElementById('email').value     || ''
+      nom:       nom,
+      tel:       tel,
+      email:     email
     }, recos);
 
     fetch(SCRIPT_URL + '?data=' + encodeURIComponent(JSON.stringify(payload)), {
@@ -966,9 +941,12 @@
   }
 
   function resetForm() {
-    document.querySelectorAll('input, textarea').forEach(el => el.value = '');
-    document.querySelectorAll('.check-option').forEach(el => el.classList.remove('checked'));
+    document.querySelectorAll('input, textarea').forEach(function(el) { el.value = ''; });
+    document.querySelectorAll('.check-option').forEach(function(el) { el.classList.remove('checked'); });
+    document.querySelectorAll('.acces-card').forEach(function(el) { el.classList.remove('selected'); });
     document.getElementById('reco-list').innerHTML = '';
+    document.getElementById('reco-identity').style.display = 'none';
+    formPath = 'interesse';
     goTo('step-home');
   }
 </script>
